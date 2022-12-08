@@ -1,4 +1,13 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+QBCore = nil
+Citizen.CreateThread(function()
+    while true do
+        Citizen.Wait(10)
+        if QBCore == nil then
+            TriggerEvent('QBCore:GetObject', function(obj) QBCore = obj end)
+            Citizen.Wait(200)
+        end
+    end
+end)
 local PlayerJob = {}
 local patt = "[?!@#]"
 local frontCam = false
@@ -177,7 +186,7 @@ local function LoadPhone()
         local PhoneMeta = PhoneData.PlayerData.metadata["phone"]
         PhoneData.MetaData = PhoneMeta
 
-        if pData.InstalledApps ~= nil and next(pData.InstalledApps) ~= nil then
+        --[[if pData.InstalledApps ~= nil and next(pData.InstalledApps) ~= nil then
             for _, v in pairs(pData.InstalledApps) do
                 local AppData = Config.StoreApps[v.app]
                 Config.PhoneApplications[v.app] = {
@@ -192,7 +201,7 @@ local function LoadPhone()
                     Alerts = 0,
                 }
             end
-        end
+        end]]--
 
         if PhoneMeta.profilepicture == nil then
             PhoneData.MetaData.profilepicture = "default"

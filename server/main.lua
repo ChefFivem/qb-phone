@@ -1,4 +1,6 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+QBCore = nil
+
+TriggerEvent('QBCore:GetObject', function(obj) QBCore = obj end)
 local QBPhone = {}
 local AppAlerts = {}
 local MentionedTweets = {}
@@ -146,6 +148,7 @@ end)
 QBCore.Functions.CreateCallback('qb-phone:server:GetPhoneData', function(source, cb)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
+
     if Player ~= nil then
         local PhoneData = {
             Applications = {},
@@ -160,7 +163,7 @@ QBCore.Functions.CreateCallback('qb-phone:server:GetPhoneData', function(source,
             CryptoTransactions = {},
             Tweets = {},
             Images = {},
-            InstalledApps = Player.PlayerData.metadata["phonedata"].InstalledApps
+--            InstalledApps = Player.PlayerData.metadata["phonedata"].InstalledApps
         }
         PhoneData.Adverts = Adverts
 
